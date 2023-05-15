@@ -1,25 +1,54 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-
+// import Navbar from './components/Navbar';
+import Navbarws from './components/Navbarws';
+import TextForm from './components/TextForm';
+import About from './components/About';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 function App() {
+  const [mode, setMode] = useState('light'); //whether dark mood is enable or not
+  const toggleMode = () => {
+    if (mode === 'light') {
+      setMode('dark');
+
+    }
+    else {
+      setMode('light');
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+
+      {/* <Navbar title="MTD" aboutText="About" /> */}
+      {/* <Navbar title="MTD" mode={mode} toggleMode={toggleMode} /> */}
+      <Router>
+      <Navbarws title="MTD" mode={mode} toggleMode={toggleMode} />
+      <div className="container my-3">
+        {/* <TextForm heading="Enter your text below to analyze" /> */}
+
+        <Switch>
+            <Route exact path="/about">
+              <About />
+            </Route>
+            <Route exact path="/">
+              <TextForm heading="Enter your text below to analyze" />
+            </Route>
+          </Switch>
+        </div>
+        </Router>
+
+
+
+
+      </>
+      );
 }
 
-export default App;
+      export default App;
